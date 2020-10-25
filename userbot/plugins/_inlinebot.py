@@ -32,7 +32,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 buttons=buttons,
             )
             await event.answer([result] if result else None)
-    
+
         elif event.query.user_id == bot.uid and query.startswith("Userbot"):
             rev_text = query[::-1]
             buttons = paginate_help(0, CMD_LIST, "helpme")
@@ -120,9 +120,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             encrypted_tcxt = event.pattern_match.group(2)
             reply_pop_up_alert = encrypted_tcxt
         else:
-            reply_pop_up_alert = (
-                "Il messaggio non è per te"
-            )
+            reply_pop_up_alert = "Il messaggio non è per te"
 
         await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
@@ -145,8 +143,8 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 reply_pop_up_alert = "{} is useless".format(plugin_name)
             else:
                 reply_pop_up_alert = help_string
-            reply_pop_up_alert += (
-                "Usa .unload {} per disattivare il plugin".format(plugin_name)
+            reply_pop_up_alert += "Usa .unload {} per disattivare il plugin".format(
+                plugin_name
             )
             try:
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)

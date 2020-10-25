@@ -42,9 +42,7 @@ for name in files:
         load_module(shortname.replace(".py", ""))
 
 LOGS.info("GalaxyUserbot online")
-LOGS.info(
-    "Congratulazioni fai .alive per testare il tuo userbot"
-)
+LOGS.info("Congratulazioni fai .alive per testare il tuo userbot")
 
 if len(argv) not in (1, 3, 4):
     bot.disconnect()

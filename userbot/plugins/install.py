@@ -36,9 +36,7 @@ async def install(event):
                 )
             else:
                 os.remove(downloaded_file_name)
-                await edit_or_reply(
-                    event, "Errore questo plugin è già installato"
-                )
+                await edit_or_reply(event, "Errore questo plugin è già installato")
         except Exception as e:  # pylint:disable=C0103,W0703
             await edit_or_reply(event, str(e))
             os.remove(downloaded_file_name)
@@ -70,7 +68,7 @@ async def send(event):
             thumb=thumb,
         )
         end = datetime.now()
-        ms = (end - start).seconds
+        (end - start).seconds
         await event.delete()
         await caat.edit(
             f"__**➥ Plugin:- {input_str} .**__\n__➥ Inviato da :-**__ {DEFAULTUSER}"

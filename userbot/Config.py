@@ -101,7 +101,7 @@ class Config((object)):
     if RSS_POST_MSG_GROUP_ID:
         RSS_POST_MSG_GROUP_ID = int(RSS_POST_MSG_GROUP_ID)
     SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
-    
+
     ANTISPAMBOT_BAN = os.environ.get("ANTISPAMBOT_BAN", False)
 
 

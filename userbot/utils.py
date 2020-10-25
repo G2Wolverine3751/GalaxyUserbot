@@ -480,6 +480,7 @@ async def is_admin(client, chat_id, user_id):
     else:
         return False
 
+
 async def edit_or_reply(event, text):
     if event.from_id in Config.SUDO_USERS:
         reply_to = await event.get_reply_message()
