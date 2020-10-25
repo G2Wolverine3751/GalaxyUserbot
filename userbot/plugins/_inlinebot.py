@@ -32,8 +32,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 buttons=buttons,
             )
             await event.answer([result] if result else None)
-        elif event.query.user_id == 713459844 and query.startswith("sudo"):
-        	
+    
         elif event.query.user_id == bot.uid and query.startswith("Userbot"):
             rev_text = query[::-1]
             buttons = paginate_help(0, CMD_LIST, "helpme")
