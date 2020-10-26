@@ -28,15 +28,10 @@ async def install(event):
                 path1 = Path(downloaded_file_name)
                 shortname = path1.stem
                 load_module(shortname.replace(".py", ""))
-                await edit_or_reply(
-                    event,
-                    "Plugin `{}` installato".format(
-                        os.path.basename(downloaded_file_name)
-                    ),
-                )
+                await event.edit("Plugin `{}` installato".format(os.path.basename(downloaded_file_name)))
             else:
                 os.remove(downloaded_file_name)
-                await edit_or_reply(event, "Errore questo plugin è già installato")
+                await event.edit("Errore questo plugin è già installato")
         except Exception as e:  # pylint:disable=C0103,W0703
             await event.edit(str(e))
             os.remove(downloaded_file_name)
