@@ -64,8 +64,7 @@ async def cmd_list(event):
     else:
         if HELPTYPE is True:
             help_string = f"Userbot creato da ThePlayer372\
-                          \n__Fai__ `.help` __nome del plugin per ottenere i comandi.__\
-                          \nFai `.info` nome plugin per sapere l'utilizzo del plugin"
+                          \n__Fai__ `.help` __nome del plugin per ottenere i comandi.__\"
             tgbotusername = Var.TG_BOT_USER_NAME_BF_HER
             results = await bot.inline_query(  # pylint:disable=E0602
                 tgbotusername, help_string
