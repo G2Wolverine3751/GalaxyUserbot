@@ -38,7 +38,7 @@ async def install(event):
                 os.remove(downloaded_file_name)
                 await edit_or_reply(event, "Errore questo plugin è già installato")
         except Exception as e:  # pylint:disable=C0103,W0703
-            await edit_or_reply(event, str(e))
+            await event.edit(str(e))
             os.remove(downloaded_file_name)
     await asyncio.sleep(DELETE_TIMEOUT)
     await event.delete()
