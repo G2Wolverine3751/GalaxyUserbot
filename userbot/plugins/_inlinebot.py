@@ -21,7 +21,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             buttons = [
                 (
                     custom.Button.inline("Stats", data="stats"),
-                    Button.url("Repo", "https://github.com/sandy1709/catuserbot"),
+                    Button.url("Repo", "https://github.com/G2Wolverine3751/GalaxyUserbot"),
                 )
             ]
             result = builder.article(
@@ -32,12 +32,17 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 buttons=buttons,
             )
             await event.answer([result] if result else None)
-
+        elif event.query.user_id == bot.uid and query.startswith("Status"):
+            result = builder.article(
+                "Galaxy Usetot:\nStatus: Attivo\nInline: Attivo",
+                text="Galaxy Usetot:\nStatus: Attivo\nInline: Attivo",
+                link_preview=False,
+            )
         elif event.query.user_id == bot.uid and query.startswith("Userbot"):
             rev_text = query[::-1]
             buttons = paginate_help(0, CMD_LIST, "helpme")
             result = builder.article(
-                "© Galaxy UserBot\n by [@ThePlayer372](tg://user?id=713459844)",
+                "© Galaxy UserBot\n by @ThePlayer372",
                 text="{}\nPlugin abilitati: {}".format(query, len(CMD_LIST)),
                 buttons=buttons,
                 link_preview=False,
