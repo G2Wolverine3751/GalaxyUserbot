@@ -4,10 +4,8 @@ import requests
 from telethon import functions
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from .helpers.utils import yaml_format
 from . import ALIVE_NAME, CMD_HELP, CMD_LIST, SUDO_LIST, 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd, yaml_format
-from . import ALIVE_NAME, CMD_HELP, CMD_LIST, SUDO_LIST
+
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "galaxy"
 
 HELPTYPE = Config.HELP_INLINETYPE or True
@@ -171,24 +169,6 @@ async def info(event):
             await event.reply(string.format(count=catcount), parse_mode="HTML")
         else:
             await event.edit(string.format(count=catcount), parse_mode="HTML")
-
-
-@bot.on(admin_cmd(pattern="dc$"))
-@bot.on(sudo_cmd(pattern="dc$", allow_sudo=True))
-async def _(event):
-    result = await bot(functions.help.GetNearestDcRequest())
-    result = (
-        yaml_format(result)
-        + "\n\n**List Of Telegram Data Centres:**\
-                \nDC1 : Miami FL, USA\
-                \nDC2 : Amsterdam, NL\
-                \nDC3 : Miami FL, USA\
-                \nDC4 : Amsterdam, NL\
-                \nDC5 : Singapore, SG\
-                "
-    )
-    await edit_or_reply(event, result)
-
 
 @bot.on(admin_cmd(outgoing=True, pattern="setinline (true|false)"))
 async def _(event):
