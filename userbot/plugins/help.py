@@ -2,11 +2,14 @@ import asyncio
 
 import requests
 from telethon import functions
+
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import ALIVE_NAME, CMD_HELP, CMD_LIST, SUDO_LIST, 
+from . import ALIVE_NAME, CMD_HELP, CMD_LIST, SUDO_LIST
+
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "galaxy"
 
 HELPTYPE = Config.HELP_INLINETYPE or True
+
 
 @bot.on(admin_cmd(outgoing=True, pattern="help ?(.*)"))
 async def cmd_list(event):
@@ -166,6 +169,7 @@ async def info(event):
             await event.reply(string.format(count=catcount), parse_mode="HTML")
         else:
             await event.edit(string.format(count=catcount), parse_mode="HTML")
+
 
 @bot.on(admin_cmd(outgoing=True, pattern="setinline (true|false)"))
 async def _(event):
