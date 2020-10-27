@@ -1,10 +1,9 @@
 import asyncio
 
 import requests
-from telethon import functions
 
-from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import ALIVE_NAME, CMD_HELP, CMD_LIST, SUDO_LIST
+from ..utils import admin_cmd
+from . import ALIVE_NAME, CMD_LIST
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "galaxy"
 
@@ -81,6 +80,7 @@ async def cmd_list(event):
                 string += "   "
                 catcount += 1
             await event.edit(string.format(count=catcount), parse_mode="HTML")
+
 
 @bot.on(admin_cmd(outgoing=True, pattern="setinline (true|false)"))
 async def _(event):
