@@ -1,9 +1,8 @@
 import sys
 from os import execl
-from time import sleep
 
 from ..utils import admin_cmd, edit_or_reply
-from . import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from . import BOTLOG, BOTLOG_CHATID, bot
 
 
 @borg.on(admin_cmd(pattern="restart$"))

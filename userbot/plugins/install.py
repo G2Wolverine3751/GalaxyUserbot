@@ -1,6 +1,5 @@
 import asyncio
 import os
-from datetime import datetime
 from pathlib import Path
 
 from .. import ALIVE_NAME
@@ -41,6 +40,7 @@ async def install(event):
             os.remove(downloaded_file_name)
     await asyncio.sleep(DELETE_TIMEOUT)
     await event.delete()
+
 
 @borg.on(admin_cmd(pattern=r"unload (?P<shortname>\w+)$", outgoing=True))
 @borg.on(sudo_cmd(pattern=r"unload (?P<shortname>\w+)$", allow_sudo=True))
