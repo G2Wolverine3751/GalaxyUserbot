@@ -5,7 +5,7 @@ from collections import deque
 from .. import ALIVE_NAME
 from ..utils import admin_cmd, sudo_cmd, edit_or_reply, register
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "galaxy"
 
 @borg.on(admin_cmd(pattern="porn"))
 @borg.on(sudo_cmd(pattern="porn", allow_sudo=True))
