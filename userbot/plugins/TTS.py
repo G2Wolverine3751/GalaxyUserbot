@@ -10,6 +10,6 @@ async def _(event):
         return
     if event.reply_to_msg_id:
         reply = event.get_reply_message()
-        results = await bot.inline_query("t.me/TTSBot", reply)
+        results = await bot.inline_query("@TTSBot", reply)
         await results[0].click(event.chat_id, reply_to=reply_to_id, hide_via=True)
         await event.delete()        
