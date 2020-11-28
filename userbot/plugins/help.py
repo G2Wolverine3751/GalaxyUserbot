@@ -4,7 +4,7 @@ import requests
 from telethon import functions
 
 from ..utils import admin_cmd, edit_or_reply, sudo_cmd
-from . import ALIVE_NAME, CMD_HELP, CMD_LIST, SUDO_LIST, yaml_format
+from . import ALIVE_NAME, CMD_HELP, CMD_LIST, SUDO_LIST
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "galaxy"
 
