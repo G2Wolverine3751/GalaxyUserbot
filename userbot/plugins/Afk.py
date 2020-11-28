@@ -31,10 +31,7 @@ async def set_not_afk(event):
     if afk_start != {}:
         total_afk_time = str((afk_end - afk_start))
     current_message = event.message.message
-    if ".afk" not in current_message and "yes" in USER_AFK:  
-        shite = await borg.send_message(event.chat_id, "Non sono più afk")
-        await asyncio.sleep(5)
-        await shite.delete()
+    if ".afk" not in current_message and "yes" in USER_AFK:
         USER_AFK = {}  
         afk_time = None  
 
@@ -97,8 +94,6 @@ async def _(event):
             afk_time = datetime.datetime.now()  
         USER_AFK = f"yes: {reason}"  
         if reason:
-            await borg.send_message(event.chat_id, f"Sto andando afk")
+            await event.edit(event.chat_id, f"Sto andando afk")
         else:
-            await borg.send_message(event.chat_id, f"Sto andando afk")
-        await asyncio.sleep(5)
-        await event.delete()
+            await event.edit(event.chat_id, f"Sto andando afk")
