@@ -11,10 +11,7 @@ async def _(event):
         return
     if BOTLOG:
         await event.client.send_message(BOTLOG_CHATID, "#RESTART \n" "Bot riavviato")
-    await edit_or_reply(
-        event,
-        "Bot in riavvio testalo con .help",
-    )
+    await event.edit("Bot in riavvio testalo con .help")
     await bot.disconnect()
     execl(sys.executable, sys.executable, *sys.argv)
 
@@ -25,5 +22,5 @@ async def _(event):
         return
     if BOTLOG:
         await event.client.send_message(BOTLOG_CHATID, "#SHUTDOWN \n" "Spegnimento")
-    await edit_or_reply(event, "Spegnimento riaccendilo da heroku")
+    await event.edit("Spegnimento riaccendilo da heroku")
     await bot.disconnect()
