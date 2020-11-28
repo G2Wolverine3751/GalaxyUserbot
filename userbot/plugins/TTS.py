@@ -15,4 +15,4 @@ async def _(event):
             await results[0].click(event.chat_id, reply_to=reply_to_id, hide_via=True)
             await event.delete()
         except Exception as e:
-            await event.delete(str(e))
+            await event.edit(str(e))
