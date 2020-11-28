@@ -18,7 +18,6 @@ afk_time = None
 last_afk_message = {}
 afk_start = {}
 
-
 @borg.on(events.NewMessage(outgoing=True))  
 async def set_not_afk(event):
     global USER_AFK  
