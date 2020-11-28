@@ -8,7 +8,7 @@ from ..utils import admin_cmd, edit_or_reply, load_module, remove_plugin, sudo_c
 
 DELETE_TIMEOUT = 5
 thumb_image_path = Config.TMP_DOWNLOAD_DIRECTORY + "/thumb_image.jpg"
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "cat"
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "galaxy"
 
 
 @borg.on(admin_cmd(pattern="install$"))
@@ -41,40 +41,6 @@ async def install(event):
             os.remove(downloaded_file_name)
     await asyncio.sleep(DELETE_TIMEOUT)
     await event.delete()
-
-
-@borg.on(admin_cmd(pattern=r"send (?P<shortname>\w+)$", outgoing=True))
-@borg.on(sudo_cmd(pattern=r"send (?P<shortname>\w+)$", allow_sudo=True))
-async def send(event):
-    if event.fwd_from:
-        return
-    reply_to_id = None
-    if event.reply_to_msg_id:
-        reply_to_id = event.reply_to_msg_id
-    thumb = None
-    if os.path.exists(thumb_image_path):
-        thumb = thumb_image_path
-    input_str = event.pattern_match["shortname"]
-    the_plugin_file = "./userbot/plugins/{}.py".format(input_str)
-    if os.path.exists(the_plugin_file):
-        start = datetime.now()
-        caat = await event.client.send_file(  # pylint:disable=E0602
-            event.chat_id,
-            the_plugin_file,
-            force_document=True,
-            allow_cache=False,
-            reply_to=reply_to_id,
-            thumb=thumb,
-        )
-        end = datetime.now()
-        (end - start).seconds
-        await event.delete()
-        await caat.edit(
-            f"__**➥ Plugin:- {input_str} .**__\n__➥ Inviato da :-**__ {DEFAULTUSER}"
-        )
-    else:
-        await edit_or_reply(event, "Plugin non trovato")
-
 
 @borg.on(admin_cmd(pattern=r"unload (?P<shortname>\w+)$", outgoing=True))
 @borg.on(sudo_cmd(pattern=r"unload (?P<shortname>\w+)$", allow_sudo=True))
