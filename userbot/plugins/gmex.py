@@ -54,6 +54,7 @@ async def _(event):
     if event.fwd_from:
         return
     msg = "Gruppi con gmex attivo:\n"
+    groups = get_all_gmex()
     for x in groups:
         cate = x.category
         ids = x.chat_id
