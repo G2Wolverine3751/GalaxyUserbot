@@ -23,6 +23,7 @@ async def _(event):
         return
     groups = get_all_gmex()
     msg = event.pattern_match.group(1)
+    await event.delete() 
     for x in groups:
         await event.client.send_message(int(x.chat_id.strip()), msg)
 
