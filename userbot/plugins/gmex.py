@@ -49,3 +49,15 @@ async def _(event):
         await asyncio.sleep(2)
         await event.delete()
     
+@borg.on(admin_cmd(pattern="listgmex")))
+async def _(event):
+    if event.fwd_from:
+        return
+    msg = "Gruppi con gmex attivo:\n"
+    for x in groups:
+        cate = x.category
+        ids = x.chat_id
+        msg = msg + str(ids)+": "+str(cate)+"\n"
+    if msg == "Gruppi con gmex attivo:\n":
+        msg = "Nessun gruppo con gmex attivo"
+    await event.edit(msg)
