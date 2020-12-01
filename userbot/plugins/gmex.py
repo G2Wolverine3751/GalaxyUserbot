@@ -39,7 +39,7 @@ async def _(event):
         return
     chat_id = event.chat_id
     msg = event.pattern_match.group(1).strip().split(" ")[0]
-    if is_gmex(chat_id) == None:
+    if is_gmex(chat_id, msg) == None:
         await event.edit("Gruppo "+str(chat_id)+" mai aggiunto nella lista "+msg)
         await asyncio.sleep(2)
         await event.delete()
