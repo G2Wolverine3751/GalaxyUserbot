@@ -6,7 +6,7 @@ from userbot.plugins.sql_helper import BASE, SESSION
 class GMEX(BASE):
     __tablename__ = "gmex"
     chat_id = Column(String(14), primary_key=True)
-    category = Column(String(20), primary_key=True)
+    category = Column(String(14), primary_key=True)
 
     def __init__(self, chat_id, category):
         self.chat_id = str(chat_id)
@@ -25,7 +25,7 @@ def get_all_gmex():
 
 def is_gmex(chat_id, category):
     try:
-        return SESSION.query(GMEX).get((str(chat_id)), str(category))
+        return SESSION.query(GMEX).get((str(chat_id), str(category)))
     except BaseException:
         return None
     finally:
@@ -38,7 +38,7 @@ def addgmex(chat_id, category):
 
 
 def removegmex(chat_id, category):
-    note = SESSION.query(GMEX).get((str(chat_id)), str(category))
+    note = SESSION.query(ECHOSQL).get((str(chat_id), str(category)))
     if note:
         SESSION.delete(note)
         SESSION.commit()
