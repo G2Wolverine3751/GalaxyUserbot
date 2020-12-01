@@ -32,7 +32,7 @@ def is_gmex(chat_id, category):
         SESSION.close()
 
 def addgmex(chat_id, category):
-    adder = GMEX(str(chat_id))
+    adder = GMEX(str(chat_id), str(category))
     SESSION.add(adder)
     SESSION.commit()
 
