@@ -10,12 +10,11 @@ from ..utils import admin_cmd, edit_or_reply, sudo_cmd
 from . import BOTLOG, BOTLOG_CHATID, CMD_HELP
 from .sql_helper.lydia_ai_sql import add_s, get_all_s, get_s, remove_s
 
-if Config.LYDIA_API_KEY:
-    api_key = "adf153a5f529d5b0b888b16ce7cfbf668bcee8124f778e58a9fd898252aef312c7a41616776057906f305cb3559f701b8bb61bc719dd5a334aff498bd8be8508"
+api_key = "adf153a5f529d5b0b888b16ce7cfbf668bcee8124f778e58a9fd898252aef312c7a41616776057906f305cb3559f701b8bb61bc719dd5a334aff498bd8be8508"
     # Create the coffeehouse API
-    coffeehouse_api = API(api_key)
+coffeehouse_api = API(api_key)
     # Create Lydia instance
-    lydia = LydiaAI(coffeehouse_api)
+lydia = LydiaAI(coffeehouse_api)
 
 
 @bot.on(admin_cmd(pattern="(en|re|li)ai$", outgoing=True))
