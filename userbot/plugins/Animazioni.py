@@ -108,4 +108,4 @@ async def _(event):
 
 
 def check_id(idsa):
-    return true
+    return True
