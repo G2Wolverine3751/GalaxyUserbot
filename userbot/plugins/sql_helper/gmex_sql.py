@@ -35,9 +35,12 @@ def get_all_gmex():
 
 
 def addgmex(chat_id, category):
-    adder = GMEX(str(chat_id), str(category))
-    SESSION.add(adder)
-    SESSION.commit()
+    try:
+        adder = GMEX(str(chat_id), str(category))
+        SESSION.add(adder)
+        SESSION.commit()
+    except Exception as e:
+        print(str(e))
 
 
 def removegmex(chat_id, category):
