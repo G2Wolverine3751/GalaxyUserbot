@@ -6,7 +6,7 @@ from userbot.plugins.sql_helper import BASE, SESSION
 class GMEX(BASE):
     __tablename__ = "gmex"
     chat_id = Column(String(14), primary_key=True)
-    category = Column(String(14), primary_key=True)
+    category = Column(String(14))
 
     def __init__(self, chat_id, category):
         self.chat_id = str(chat_id)
