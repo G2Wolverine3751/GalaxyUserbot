@@ -55,10 +55,11 @@ async def _(event):
         return
     msg = "Gruppi con gmex attivo:\n"
     groups = get_all_gmex()
-    for x in groups:
-        cate = x.category
-        ids = x.chat_id
-        msg = msg + str(ids)+": "+str(cate)+"\n"
-    if msg == "Gruppi con gmex attivo:\n":
-        msg = "Nessun gruppo con gmex attivo"
+    if groups:
+        for x in groups:
+            cate = x.category
+            ids = x.chat_id
+            msg = msg + str(ids)+": "+str(cate)+"\n"
+    else:
+        msg = "Nessun gruppo inserito"
     await event.edit(msg)
