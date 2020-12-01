@@ -49,7 +49,7 @@ async def _(event):
         await asyncio.sleep(2)
         await event.delete()
     
-@borg.on(admin_cmd(pattern="listgmex")))
+@borg.on(admin_cmd(pattern="listgmex"))
 async def _(event):
     if event.fwd_from:
         return
