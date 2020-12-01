@@ -24,7 +24,7 @@ async def _(event):
     groups = get_all_gmex()
     msg = event.pattern_match.group(1)
     for x in groups:
-        await event.client.send_message(int(x.strip()), msg)
+        await event.client.send_message(int(x.chat_id.strip()), msg)
 
 @borg.on(admin_cmd(pattern="rmgmex"))
 async def _(event):
