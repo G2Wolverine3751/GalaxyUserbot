@@ -7,13 +7,13 @@ async def _(event):
     if event.fwd_from:
         return
     chat_id = event.chat_id
-    msg = event.pattern_match.group(1).strip().split(" ")[0]
+    category = event.pattern_match.group(1).strip().split(" ")[0]
     if is_gmex(chat_id, msg):
         await event.edit("Gruppo "+str(chat_id)+" già aggiunto nella lista "+msg)
         await asyncio.sleep(2)
         await event.delete()
     else:
-        addgmex(chat_id, msg)
+        addgmex(chat_id, category)
         await event.edit("Gruppo "+str(chat_id)+" aggiunto con successo alla lista "+msg)
         await asyncio.sleep(2)
         await event.delete() 
@@ -38,13 +38,13 @@ async def _(event):
     if event.fwd_from:
         return
     chat_id = event.chat_id
-    msg = event.pattern_match.group(1).strip().split(" ")[0]
-    if is_gmex(chat_id, msg) == None:
+    category = event.pattern_match.group(1).strip().split(" ")[0]
+    if is_gmex(chat_id, category) == None:
         await event.edit("Gruppo "+str(chat_id)+" mai aggiunto nella lista "+msg)
         await asyncio.sleep(2)
         await event.delete()
     else:
-        removegmex(chat_id, msg)
+        removegmex(chat_id, category)
         await event.edit("Gruppo "+str(chat_id)+" rimosso con successo dalla lista "+msg)
         await asyncio.sleep(2)
         await event.delete()
