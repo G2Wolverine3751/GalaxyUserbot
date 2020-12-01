@@ -22,7 +22,7 @@ lydia = LydiaAI(coffeehouse_api)
 async def lydia_disable_enable(event):
     if event.fwd_from:
         return
-    catevent = await edit(event, "`.....`")
+    catevent = await event.edit(event, "`.....`")
     input_str = event.pattern_match.group(1)
     if event.reply_to_msg_id is not None:
         reply_msg = await event.get_reply_message()
