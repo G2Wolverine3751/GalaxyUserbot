@@ -41,7 +41,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 link_preview=False,
             )
 
-        elif event.query.user_id == bot.uid and query.startswith("**Security")
+        elif event.query.user_id == bot.uid and query.startswith("**Security"):
             buttons = [(custom.Button.inline("Accetta", data="SecutityAccetta"), custom.Button.inline("Rifiuta", data="SecutityRifiuta"), )]
             result = builder.article(
                 # catpic,
