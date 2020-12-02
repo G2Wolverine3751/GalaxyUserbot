@@ -40,6 +40,17 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
                 text="Galaxy Usetot:\nStatus: Attivo\nInline: Attivo",
                 link_preview=False,
             )
+
+        elif event.query.user_id == bot.uid and query.startswith("**Security")
+            buttons = [(custom.Button.inline("Accetta", data="SecutityAccetta"), custom.Button.inline("Rifiuta", data="SecutityRifiuta"), )]
+            result = builder.article(
+                # catpic,
+                title="Security sistem by ThePlayer",
+                # force_document = False,
+                text="Ciao, aspetta che io mio padrone ti accetti",
+                buttons=buttons,
+                )
+            await event.answer([result] if result else None)
         elif event.query.user_id == bot.uid and query.startswith("Userbot"):
             rev_text = query[::-1]
             buttons = paginate_help(0, CMD_LIST, "helpme")
