@@ -40,3 +40,7 @@ def get_all_add():
     rem = SESSION.query(PMPermits).all()
     SESSION.close()
     return rem
+
+def rm_all():
+    SESSION.query(PMPermit).delete()
+    SESSION.commit()
