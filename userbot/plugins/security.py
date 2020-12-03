@@ -1,9 +1,17 @@
 from ..utils import admin_cmd
 import asyncio
 from telethon import events, functions
-from .sql_helper.pmsecurity_sqld import add, is_in, rm_all
-from .sql_helper import pmpermit_sql
+from .sql_helper.pmsecurity_sqld import add, is_in, rm_all, remove
+from .sql_helper.pmpermit_sql import approve, disapprove
 
+@borg.on(admin_cmd(pattern="a"))
+async def _(event):
+    if event.fwd_from:
+        return
+    approve(event.chat_id, "Approvato da te")
+    remove(event.chat_id)
+    await event.edit("Approvato")
+    
 @borg.on(admin_cmd(pattern="dall"))
 async def _(event):
     if event.fwd_from:
