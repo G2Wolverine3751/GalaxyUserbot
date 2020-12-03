@@ -3,7 +3,7 @@ import math
 import re
 
 from telethon import Button, custom, events
-
+from .sql_helper.pmpermit_sql import approve, disapprove
 from .. import CMD_LIST
 from . import catalive
 
@@ -44,9 +44,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         elif event.query.user_id == bot.uid and query.startswith("**Security"):
             buttons = [(custom.Button.inline("Accetta", data="SecutityAccetta"), custom.Button.inline("Rifiuta", data="SecutityRifiuta"), )]
             result = builder.article(
-                # catpic,
-                title="Security sistem by ThePlayer",
-                # force_document = False,
+                title="Security sistem by ThePlayer",    
                 text="Ciao, aspetta che io mio padrone ti accetti",
                 buttons=buttons,
                 )
@@ -67,22 +65,17 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             note_data = ""
             buttons = []
             for match in BTN_URL_REGEX.finditer(markdown_note):
-                # Check if btnurl is escaped
                 n_escapes = 0
                 to_check = match.start(1) - 1
                 while to_check > 0 and markdown_note[to_check] == "\\":
                     n_escapes += 1
                     to_check -= 1
-                # if even, not escaped -> create button
                 if n_escapes % 2 == 0:
-                    # create a thruple with button label, url, and newline
-                    # status
                     buttons.append(
                         (match.group(2), match.group(3), bool(match.group(4)))
                     )
                     note_data += markdown_note[prev : match.start(1)]
                     prev = match.end(1)
-                # if odd, escaped -> move along
                 else:
                     note_data += markdown_note[prev:to_check]
                     prev = match.start(1) - 1
@@ -99,36 +92,52 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             await event.answer([result] if result else None)
 
     @tgbot.on(
-        events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+        events.callbackquery.CallbackQuery(  
             data=re.compile(rb"helpme_next\((.+?)\)")
         )
     )
     async def on_plug_in_callback_query_handler(event):
-        if event.query.user_id == bot.uid:  # pylint:disable=E0602
+        if event.query.user_id == bot.uid:  
             current_page_number = int(event.data_match.group(1).decode("UTF-8"))
             buttons = paginate_help(current_page_number + 1, CMD_LIST, "helpme")
-            # https://t.me/TelethonChat/115200
             await event.edit(buttons=buttons)
         else:
-            reply_pop_up_alert = "Please get your own catuserbot, and don't use mine! Join @catuserbot17 help"
+            reply_pop_up_alert = "Usa il tuo userbot non il mio"
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
     @tgbot.on(
-        events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+        events.callbackquery.CallbackQuery(  
             data=re.compile(rb"helpme_prev\((.+?)\)")
         )
     )
     async def on_plug_in_callback_query_handler(event):
-        if event.query.user_id == bot.uid:  # pylint:disable=E0602
+        if event.query.user_id == bot.uid:  
             current_page_number = int(event.data_match.group(1).decode("UTF-8"))
             buttons = paginate_help(
-                current_page_number - 1, CMD_LIST, "helpme"  # pylint:disable=E0602
+                current_page_number - 1, CMD_LIST, "helpme"  
             )
-            # https://t.me/TelethonChat/115200
             await event.edit(buttons=buttons)
         else:
-            reply_pop_up_alert = "Please get your own catuserbot, and don't use mine! Join @catuserbot17 help "
+            reply_pop_up_alert = "Usa il tuo userbot non il mio "
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+    @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile("SecutityAccetta")))
+    async def on_plug_in_callback_query_handler(event):
+        if event.query.user_id == bot.uid:
+            await event.edit("Utente "+str(event.chat_id)+" accettato")
+            approve(event.chat_id, "Approvato da te")
+
+    @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile("SecutityAccetta")))
+    async def on_plug_in_callback_query_handler(event):
+        if event.query.user_id == bot.uid:
+            if event.is_private:
+                await event.edit("Utente "+str(event.chat_id)+" bloccato")
+                user = await event.get_chat()
+                await event.client(functions.contacts.BlockRequest(user.id))
+            else:
+                await event.answer("Non puoi bloccare un gruppo", cache_time=0, alert=True)
+        else:
+            await event.answer("Usa il tuo userbot non il mio", cache_time=0, alert=True)
 
     @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"secret_(.+?)_(.+)")))
     async def on_plug_in_callback_query_handler(event):
@@ -143,7 +152,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
     @tgbot.on(
-        events.callbackquery.CallbackQuery(  # pylint:disable=E0602
+        events.callbackquery.CallbackQuery(  
             data=re.compile(b"us_plugin_(.*)")
         )
     )
@@ -167,7 +176,6 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             try:
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
             except BaseException:
-                # https://github.com/Dark-Princ3/X-tra-Telegram/commit/275fd0ec26b284d042bf56de325472e088e6f364#diff-2b2df8998ff11b6c15893b2c8d5d6af3
                 with io.BytesIO(str.encode(reply_pop_up_alert)) as out_file:
                     out_file.name = "{}.txt".format(plugin_name)
                     await borg.send_file(
