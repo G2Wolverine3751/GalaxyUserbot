@@ -43,11 +43,9 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             )
 
         elif event.query.user_id == bot.uid and query.startswith("**Security"):
-            buttons = [(custom.Button.inline("Accetta", data="SecutityAccetta"), custom.Button.inline("Rifiuta", data="SecutityRifiuta"), )]
             result = builder.article(
                 title="Security sistem by ThePlayer",    
-                text="Ciao, aspetta che io mio padrone ti accetti",
-                buttons=buttons,
+                text="Ciao, aspetta che io mio padrone ti accetti"
                 )
             await event.answer([result] if result else None)
         elif event.query.user_id == bot.uid and query.startswith("Userbot"):
