@@ -2,7 +2,7 @@ from ..utils import admin_cmd
 import asyncio
 from telethon import events, functions
 from .sql_helper.pmsecurity_sqld import add, is_in, rm_all, remove
-from .sql_helper.pmpermit_sql import approve, disapprove
+from .sql_helper.pmpermit_sql import approve, disapprove, is_approved
 
 @borg.on(admin_cmd(pattern="a"))
 async def _(event):
@@ -22,12 +22,12 @@ async def _(event):
 @bot.on(events.NewMessage(incoming=True))
 async def onMessage(event):
     if event.sender_id == event.client.uid:
-        if pmpermit_sql.is_approved(event.chat_id) == None:
-            pmpermit_sql.approve(event.chat_id, "")
+        if is_approved(event.chat_id) == None:
+            approve(event.chat_id, "")
         return
     if not event.is_private:
         return
-    if pmpermit_sql.is_approved(event.chat_id):
+    if is_approved(event.chat_id):
         return
     if is_in(event.sender_id):
         await event.delete()
