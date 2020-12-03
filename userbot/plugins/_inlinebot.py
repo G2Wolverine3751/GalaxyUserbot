@@ -5,7 +5,7 @@ import re
 from telethon import Button, custom, events
 from .sql_helper.pmpermit_sql import approve, disapprove
 from .. import CMD_LIST
-from . import catalive
+from . import galaxyalive
 
 CAT_IMG = Config.ALIVE_PIC if Config.ALIVE_PIC else None
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\<buttonurl:(?:/{0,2})(.+?)(:same)?\>)")
@@ -199,7 +199,7 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
 
     @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"stats")))
     async def on_plug_in_callback_query_handler(event):
-        statstext = await catalive()
+        statstext = await galaxyalive()
         reply_pop_up_alert = statstext
         await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
