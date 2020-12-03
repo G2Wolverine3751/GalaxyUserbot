@@ -2,7 +2,7 @@ import io
 import math
 import re
 
-from telethon import Button, custom, events
+from telethon import Button, custom, events, functions
 from .sql_helper.pmpermit_sql import approve, disapprove
 from .. import CMD_LIST
 from . import galaxyalive
