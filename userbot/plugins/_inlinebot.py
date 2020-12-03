@@ -120,26 +120,6 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
             reply_pop_up_alert = "Usa il tuo userbot non il mio "
             await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
-    @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile("SecutityAccetta")))
-    async def on_plug_in_callback_query_handler(event):
-        if event.query.user_id == bot.uid:
-            await event.edit("Utente "+str(event.chat_id)+" accettato")
-            approve(event.chat_id, "Approvato da te")
-            remove(event.chat_id)
-
-    @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile("SecutityRifiuta")))
-    async def on_plug_in_callback_query_handler(event):
-        if event.query.user_id == bot.uid:
-            if event.is_private:
-                await event.edit("Utente "+str(event.chat_id)+" bloccato")
-                user = await event.get_chat()
-                await event.client(functions.contacts.BlockRequest(user.id))
-                remove(event.chat_id)
-            else:
-                await event.answer("Non puoi bloccare un gruppo", cache_time=0, alert=True)
-        else:
-            await event.answer("Usa il tuo userbot non il mio", cache_time=0, alert=True)
-
     @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile(b"secret_(.+?)_(.+)")))
     async def on_plug_in_callback_query_handler(event):
         userid = event.pattern_match.group(1)
