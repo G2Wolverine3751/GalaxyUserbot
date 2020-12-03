@@ -42,5 +42,5 @@ def get_all_add():
     return rem
 
 def rm_all():
-    SESSION.query(PMPermit).delete()
+    SESSION.query(PMPermits).delete()
     SESSION.commit()
