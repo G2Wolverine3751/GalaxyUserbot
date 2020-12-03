@@ -6,6 +6,7 @@ from telethon import Button, custom, events, functions
 from .sql_helper.pmpermit_sql import approve, disapprove
 from .. import CMD_LIST
 from . import galaxyalive
+from .sql_helper.pmsecurity_sqld import add, is_in, remove
 
 CAT_IMG = Config.ALIVE_PIC if Config.ALIVE_PIC else None
 BTN_URL_REGEX = re.compile(r"(\[([^\[]+?)\]\<buttonurl:(?:/{0,2})(.+?)(:same)?\>)")
@@ -126,14 +127,16 @@ if Var.TG_BOT_USER_NAME_BF_HER is not None and tgbot is not None:
         if event.query.user_id == bot.uid:
             await event.edit("Utente "+str(event.chat_id)+" accettato")
             approve(event.chat_id, "Approvato da te")
+            remove(event.chat_id)
 
-    @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile("SecutityAccetta")))
+    @tgbot.on(events.callbackquery.CallbackQuery(data=re.compile("SecutityRifiuta")))
     async def on_plug_in_callback_query_handler(event):
         if event.query.user_id == bot.uid:
             if event.is_private:
                 await event.edit("Utente "+str(event.chat_id)+" bloccato")
                 user = await event.get_chat()
                 await event.client(functions.contacts.BlockRequest(user.id))
+                remove(event.chat_id)
             else:
                 await event.answer("Non puoi bloccare un gruppo", cache_time=0, alert=True)
         else:
