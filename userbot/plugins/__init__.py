@@ -57,6 +57,16 @@ TMP_DOWNLOAD_DIRECTORY = Config.TMP_DOWNLOAD_DIRECTORY
 # uniborg
 
 
+def set_key(dictionary, key, value):
+    if key not in dictionary:
+        dictionary[key] = value
+    elif isinstance(dictionary[key], list):
+        if value in dictionary[key]:
+            return
+        dictionary[key].append(value)
+    else:
+        dictionary[key] = [dictionary[key], value]
+
 def check_data_base_heal_th():
     # https://stackoverflow.com/a/41961968
     is_database_working = False
@@ -85,7 +95,7 @@ else:
     spamwatch = None
 
 
-async def catalive():
+async def galaxyalive():
     _, check_sgnirts = check_data_base_heal_th()
     sudo = "Enabled" if Config.SUDO_USERS else "Disabled"
     uptime = await get_readable_time((time.time() - StartTime))
