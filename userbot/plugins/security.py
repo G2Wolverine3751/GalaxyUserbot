@@ -9,6 +9,7 @@ async def _(event):
     if event.fwd_from:
         return
     rm_all()
+    await event.edit("Disapprovati tutti")
 
 @bot.on(events.NewMessage(incoming=True))
 async def onMessage(event):
