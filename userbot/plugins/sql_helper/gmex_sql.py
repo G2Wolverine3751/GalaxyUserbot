@@ -6,11 +6,9 @@ from userbot.plugins.sql_helper import BASE, SESSION
 class GMEX(BASE):
     __tablename__ = "gmex"
     chat_id = Column(String(14), primary_key=True)
-    category = Column(String(14))
 
-    def __init__(self, chat_id, category):
+    def __init__(self, chat_id):
         self.chat_id = str(chat_id)
-        self.category = str(category)
 
 
 GMEX.__table__.create(checkfirst=True)
@@ -18,7 +16,7 @@ GMEX.__table__.create(checkfirst=True)
 
 def is_gmex(chat_id, category):
     try:
-        return SESSION.query(GMEX).get((str(chat_id), str(category)))
+        return SESSION.query(GMEX).get(str(chat_id))
     except BaseException:
         return None
     finally:
@@ -36,7 +34,7 @@ def get_all_gmex():
 
 def addgmex(chat_id, category):
     try:
-        adder = GMEX(str(chat_id), str(category))
+        adder = GMEX(str(chat_id))
         SESSION.add(adder)
         SESSION.commit()
     except Exception as e:
@@ -44,7 +42,7 @@ def addgmex(chat_id, category):
 
 
 def removegmex(chat_id, category):
-    note = SESSION.query(GMEX).get((str(chat_id), str(category)))
+    note = SESSION.query(GMEX).get(str(chat_id))
     if note:
         SESSION.delete(note)
         SESSION.commit()
