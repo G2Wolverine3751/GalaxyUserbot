@@ -7,6 +7,16 @@ from ..utils import admin_cmd, sudo_cmd, edit_or_reply, register
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "galaxy"
 
+@register(outgoing=True, pattern="^lol$")
+async def _(event):
+    if event.fwd_from:
+        return
+    if check_id(bot.uid) == False:
+        await event.edit("Non puoi eseguire questo plugin per poterlo usare richedi l'accesso a @ThePlayer372")
+        return
+    msg = "╔═══╗╔══╗╔═══╗\n║╔═╗║╚║║╝║╔═╗║\n║╚═╝║─║║─║╚═╝║\n║╔╗╔╝─║║─║╔══╝\n║║║╚╗╔╣║╗║║───\n╚╝╚═╝╚══╝╚╝───"
+    await event.edit(msg)
+
 @borg.on(admin_cmd(pattern="porn"))
 @borg.on(sudo_cmd(pattern="porn", allow_sudo=True))
 async def _(event):
