@@ -12,7 +12,7 @@ async def _(event):
         await asyncio.sleep(2)
         await event.delete()
     else:
-        addgmex(chat_id, category)
+        addgmex(chat_id)
         await event.edit("Gruppo "+str(chat_id)+" aggiunto con successo")
         await asyncio.sleep(2)
         await event.delete() 
@@ -23,27 +23,21 @@ async def _(event):
         return
     groups = get_all_gmex()
     msg = event.pattern_match.group(1)
-    category = event.pattern_match.group(1).strip().split(" ")[0]
-    msg = msg.replace(category, "").strip()
     await event.delete() 
     for x in groups:
-        cate = x.category.strip()
-        ids = int(x.chat_id.strip())
-        if str(cate) == str(category).strip():
-            await event.client.send_message(ids, msg)
+        await event.client.send_message(ids, msg)
 
 @borg.on(admin_cmd(pattern="rmgmex"))
 async def _(event):
     if event.fwd_from:
         return
     chat_id = event.chat_id
-    category = event.pattern_match.group(1).strip().split(" ")[0]
-    if is_gmex(chat_id, category) == None:
+    if is_gmex(chat_id) == None:
         await event.edit("Gruppo "+str(chat_id)+" mai aggiunto")
         await asyncio.sleep(2)
         await event.delete()
     else:
-        removegmex(chat_id, category)
+        removegmex(chat_id)
         await event.edit("Gruppo "+str(chat_id)+" rimosso con successo")
         await asyncio.sleep(2)
         await event.delete()
@@ -56,7 +50,6 @@ async def _(event):
     groups = get_all_gmex()
     if groups:
         for x in groups:
-            cate = x.category
             ids = x.chat_id
             msg = msg + str(ids)+"\n"
     else:
