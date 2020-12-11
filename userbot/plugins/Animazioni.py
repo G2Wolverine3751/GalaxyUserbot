@@ -7,7 +7,7 @@ from ..utils import admin_cmd, sudo_cmd, edit_or_reply, register
 
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else "galaxy"
 
-@register(outgoing=True, pattern="^lol$")
+@register(outgoing=True, pattern="^rip$")
 async def _(event):
     if event.fwd_from:
         return
