@@ -2,19 +2,18 @@ from .sql_helper.gmex_sql import get_all_gmex, addgmex, removegmex, is_gmex
 from ..utils import admin_cmd
 import asyncio
 
-@borg.on(admin_cmd(pattern="addgmex (.*)"))
+@borg.on(admin_cmd(pattern="addgmex"))
 async def _(event):
     if event.fwd_from:
         return
     chat_id = event.chat_id
-    category = event.pattern_match.group(1).strip().split(" ")[0]
-    if is_gmex(chat_id, category):
-        await event.edit("Gruppo "+str(chat_id)+" già aggiunto nella lista "+category)
+    if is_gmex(chat_id):
+        await event.edit("Gruppo "+str(chat_id)+" già aggiunto")
         await asyncio.sleep(2)
         await event.delete()
     else:
         addgmex(chat_id, category)
-        await event.edit("Gruppo "+str(chat_id)+" aggiunto con successo alla lista "+category)
+        await event.edit("Gruppo "+str(chat_id)+" aggiunto con successo")
         await asyncio.sleep(2)
         await event.delete() 
 
@@ -33,19 +32,19 @@ async def _(event):
         if str(cate) == str(category).strip():
             await event.client.send_message(ids, msg)
 
-@borg.on(admin_cmd(pattern="rmgmex (.*)"))
+@borg.on(admin_cmd(pattern="rmgmex"))
 async def _(event):
     if event.fwd_from:
         return
     chat_id = event.chat_id
     category = event.pattern_match.group(1).strip().split(" ")[0]
     if is_gmex(chat_id, category) == None:
-        await event.edit("Gruppo "+str(chat_id)+" mai aggiunto nella lista "+category)
+        await event.edit("Gruppo "+str(chat_id)+" mai aggiunto")
         await asyncio.sleep(2)
         await event.delete()
     else:
         removegmex(chat_id, category)
-        await event.edit("Gruppo "+str(chat_id)+" rimosso con successo dalla lista "+category)
+        await event.edit("Gruppo "+str(chat_id)+" rimosso con successo")
         await asyncio.sleep(2)
         await event.delete()
     
@@ -59,7 +58,7 @@ async def _(event):
         for x in groups:
             cate = x.category
             ids = x.chat_id
-            msg = msg + str(ids)+": "+str(cate)+"\n"
+            msg = msg + str(ids)+"\n"
     else:
         msg = "Nessun gruppo inserito"
     await event.edit(msg)
