@@ -14,7 +14,7 @@ class GMEX(BASE):
 GMEX.__table__.create(checkfirst=True)
 
 
-def is_gmex(chat_id, category):
+def is_gmex(chat_id):
     try:
         return SESSION.query(GMEX).get(str(chat_id))
     except BaseException:
@@ -32,7 +32,7 @@ def get_all_gmex():
         SESSION.close()
 
 
-def addgmex(chat_id, category):
+def addgmex(chat_id):
     try:
         adder = GMEX(str(chat_id))
         SESSION.add(adder)
@@ -41,7 +41,7 @@ def addgmex(chat_id, category):
         print(str(e))
 
 
-def removegmex(chat_id, category):
+def removegmex(chat_id):
     note = SESSION.query(GMEX).get(str(chat_id))
     if note:
         SESSION.delete(note)
