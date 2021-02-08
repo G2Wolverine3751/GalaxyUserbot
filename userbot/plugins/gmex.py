@@ -25,8 +25,11 @@ async def _(event):
     msg = event.pattern_match.group(1)
     await event.delete() 
     for x in groups:
-        ids = int(x.chat_id)
-        await event.client.send_message(ids, msg)
+        try:
+            ids = int(x.chat_id)
+            await event.client.send_message(ids, msg)
+        except Exception as e:
+            pass
 
 @borg.on(admin_cmd(pattern="rmgmex"))
 async def _(event):
